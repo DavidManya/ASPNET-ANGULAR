@@ -1,0 +1,35 @@
+<h2>Employees</h2>
+
+<button [routerLink]='["/employees-add"]' class="btn btn-primary">ADD EMPLOYEE</button>
+
+<p *ngIf="!(employees && employees.length)">
+  No existen registros para mostrar
+</p>
+
+<table class="table table-striped" style="margin-top: 10px" *ngIf="employees && employees.length">
+  <thead>
+    <tr>
+      <th>DNI</th>
+      <th>Name</th>
+      <th>Surnames</th>
+      <th>Job</th>
+      <th>Email</th>
+      <th>Salary</th>
+    </tr>
+  </thead>
+             
+  <tbody>
+    <tr *ngFor="let employee of employees">
+      <td>{{employee.dni}}</td>
+      <td>{{employee.name}}</td>
+      <td>{{employee.surnames}}</td>
+      <td>{{employee.job}}</td>
+      <td>{{employee.email}}</td>
+      <td>{{employee.salary}}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" style="margin-right: 5px" [routerLink]='["/employees-edit/" + employee.idEmployee]'>EDIT</button>
+          <button class="btn btn-danger btn-sm" (click)="delete(employee)">DELETE</button>
+        </td>
+    </tr>
+  </tbody>
+</table>
