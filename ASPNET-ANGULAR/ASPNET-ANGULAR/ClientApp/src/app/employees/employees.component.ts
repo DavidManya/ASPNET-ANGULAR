@@ -22,9 +22,11 @@ export class EmployeesComponent implements OnInit
 
   delete(employee: IEmployee)
   {
-    this.employeesServices.deleteEmployee(employee.idEmployee.toString())
-      .subscribe(employee => this.loadData(),
-        error => console.error(error));
+    if(confirm('Are you sure you want to delete it?')){
+      this.employeesServices.deleteEmployee(employee.idEmployee.toString())
+        .subscribe(employee => this.loadData(),
+          error => console.error(error));
+    }
   }
 
   loadData()
