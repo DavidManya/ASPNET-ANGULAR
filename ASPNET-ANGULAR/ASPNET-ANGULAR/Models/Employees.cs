@@ -30,5 +30,7 @@ namespace ASPNET_ANGULAR.Models
 
         //[RegularExpression("/^[0-9]+$/", ErrorMessage = "El valor ha de ser numérico")]
         public int Salary { get; set; } = 0;
+
+        public List<Addresses> Addresses { get; set; }
     }
 }

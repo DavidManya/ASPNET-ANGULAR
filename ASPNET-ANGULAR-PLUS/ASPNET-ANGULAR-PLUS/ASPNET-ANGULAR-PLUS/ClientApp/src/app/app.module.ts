@@ -7,22 +7,20 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { EmployeesComponent } from './employees/employees.component';
-import { EmployeesService } from './employees/employees.service';
-import { EmployeesFormComponent } from './employees/employees-form/employees-form.component';
-import { LogInterceptorService } from './servicios/log-interceptor.service';
+import { EmployeeComponent } from './components/employee/employee.component';
+import { EmployeeService } from './components/employee/employee.service';
+import { EmployeeFormComponent } from './Components/employee-form/employee-form.component';
+import { LogInterceptorService } from './Interceptor/log-interceptor.service';
+import { AddressService } from './Components/employee/address/address.service';
+import { LeaveFormService } from './Services/leave-form.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
-    EmployeesComponent,
-    EmployeesFormComponent
+    EmployeeComponent,
+    EmployeeFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,14 +29,14 @@ import { LogInterceptorService } from './servicios/log-interceptor.service';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'employees', component: EmployeesComponent },
-      { path: 'employees-add', component: EmployeesFormComponent },
-      { path: 'employees-edit/:id', component: EmployeesFormComponent },
+      { path: 'employees', component: EmployeeComponent },
+      { path: 'employees-add', component: EmployeeFormComponent, canDeactivate: [LeaveFormService] },
+      { path: 'employees-edit/:id', component: EmployeeFormComponent, canDeactivate: [LeaveFormService] },
     ])
   ],
-  providers: [EmployeesService,
+  providers: [EmployeeService,
+    AddressService,
+    LeaveFormService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,

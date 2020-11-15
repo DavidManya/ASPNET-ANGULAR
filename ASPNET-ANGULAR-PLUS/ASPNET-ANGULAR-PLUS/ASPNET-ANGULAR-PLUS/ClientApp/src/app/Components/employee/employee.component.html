@@ -17,7 +17,7 @@
       <th>Salary</th>
     </tr>
   </thead>
-             
+
   <tbody>
     <tr *ngFor="let employee of employees">
       <td>{{employee.dni}}</td>
@@ -26,10 +26,11 @@
       <td>{{employee.job}}</td>
       <td>{{employee.email}}</td>
       <td>{{employee.salary}}</td>
-        <td>
-          <button class="btn btn-primary btn-sm" style="margin-right: 5px" [routerLink]='["/employees-edit/" + employee.idEmployee]'>EDIT</button>
-          <button class="btn btn-danger btn-sm" (click)="delete(employee)">DELETE</button>
-        </td>
+      <td>
+        <button class="btn btn-primary btn-sm" style="margin-right: 5px" [routerLink]='["/employees-edit/" + employee.employeeId]'>EDIT</button>
+        <button class="btn btn-danger btn-sm" (click)="delete(employee)">DELETE</button>
+      </td>
     </tr>
   </tbody>
 </table>
+

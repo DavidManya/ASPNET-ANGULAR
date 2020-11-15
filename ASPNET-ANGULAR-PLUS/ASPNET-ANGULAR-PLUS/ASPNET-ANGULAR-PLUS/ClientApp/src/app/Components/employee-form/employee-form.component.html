@@ -1,0 +1,199 @@
+<h2>{{editMode ? 'Edit' : 'Add'}} Employee</h2>
+<form class="form-horizontal" novalidate
+      (ngSubmit)="save()" [formGroup]="formGroup">
+  <fieldset>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('dni').touched || formGroup.get('dni').dirty) && !formGroup.get('dni').valid }">
+      <label class="col-md-2 control-label"
+             for="dniId">DNI</label>
+
+      <div class="col-md-8">
+        <input class="form-control"
+               id="dniId"
+               type="text"
+               required
+               formControlName="dni" />
+        <span class="help-block" *ngIf="(formGroup.get('dni').touched || formGroup.get('dni').dirty) && formGroup.get('dni').errors">
+          <span *ngIf="formGroup.get('dni').errors.required">
+            A DNI is required
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('name').touched || formGroup.get('name').dirty) && !formGroup.get('name').valid }">
+      <label class="col-md-2 control-label"
+             for="nameId">Name</label>
+
+      <div class="col-md-8">
+        <input class="form-control"
+               id="nameId"
+               type="text"
+               required
+               formControlName="name" />
+        <span class="help-block" *ngIf="(formGroup.get('name').touched || formGroup.get('name').dirty) && formGroup.get('name').errors">
+          <span *ngIf="formGroup.get('name').errors.required">
+            A Name is required
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('surnames').touched || formGroup.get('surnames').dirty) && !formGroup.get('surnames').valid }">
+      <label class="col-md-2 control-label"
+             for="surnamesId">Surnames</label>
+
+      <div class="col-md-8">
+        <input class="form-control"
+               id="surnamesId"
+               type="text"
+               required
+               formControlName="surnames" />
+        <span class="help-block" *ngIf="(formGroup.get('surnames').touched || formGroup.get('surnames').dirty) && formGroup.get('surnames').errors">
+          <span *ngIf="formGroup.get('surnames').errors.required">
+            A Surnames is required
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('job').touched || formGroup.get('job').dirty) && !formGroup.get('job').valid }">
+      <label class="col-md-2 control-label"
+             for="jobId">Job</label>
+
+      <div class="col-md-8">
+        <input class="form-control"
+               id="jobId"
+               type="text"
+               required
+               formControlName="job" />
+        <span class="help-block" *ngIf="(formGroup.get('job').touched || formGroup.get('job').dirty) && formGroup.get('job').errors">
+          <span *ngIf="formGroup.get('job').errors.required">
+            A Job is required
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('email').touched || formGroup.get('email').dirty) && !formGroup.get('email').valid }">
+      <label class="col-md-2 control-label"
+             for="emailId">Email</label>
+
+      <div class="col-md-8">
+        <input class="form-control"
+               id="emailId"
+               type="email"
+               required
+               formControlName="email" />
+        <span class="help-block" *ngIf="(formGroup.get('email').touched || formGroup.get('email').dirty) && formGroup.get('email').errors">
+          <span *ngIf="formGroup.get('email').errors.required">
+            A Email is required
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('salary').touched || formGroup.get('salary').dirty) && !formGroup.get('salary').valid }">
+      <label class="col-md-2 control-label"
+             for="salaryId">Salary</label>
+
+      <div class="col-md-8">
+        <input class="form-control"
+               id="salryId"
+               type="number"
+               required
+               formControlName="salary" />
+        <span class="help-block" *ngIf="(formGroup.get('salary').touched || formGroup.get('salary').dirty) && formGroup.get('salary').errors">
+          <span *ngIf="formGroup.get('salary').errors.required">
+            A Salary is required
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-8">
+        <span>
+          <button type="button" class="btn btn-info btn-sm" (click)="addAddress()">Add Address</button>
+        </span>
+      </div>
+    </div>
+
+    <div formArrayName="addresses"
+         *ngFor="let address of formGroup.get('addresses').controls; let i = index;">
+      <div [formGroupName]="i">
+        <div class="form-group">
+          <label class="col-md-2 control-label" [attr.for]="'streetAdress' + i">
+            Street Address
+          </label>
+          <div class="col-md-8">
+            <input class="form-control" [attr.id]="'streetAddress' + i" type="text" formControlName="streetAddress" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" [attr.for]="'city' + i">
+            City
+          </label>
+          <div class="col-md-8">
+            <input class="form-control" [attr.id]="'city' + i" type="text" formControlName="city" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" [attr.for]="'province' + i">
+            Province
+          </label>
+          <div class="col-md-8">
+            <input class="form-control" [attr.id]="'province' + i" type="text" formControlName="province" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" [attr.for]="'postalCode' + i">
+            Postal Code
+          </label>
+          <div class="col-md-8">
+            <input class="form-control" [attr.id]="'postalCode' + i" type="text" formControlName="postalCode" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" [attr.for]="'country' + i">
+            Country
+          </label>
+          <div class="col-md-8">
+            <input class="form-control" [attr.id]="'country' + i" type="text" formControlName="country" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-10">
+            <button type="button" class="btn btn btn-outline-danger btn-sm pull-right" (click)="removeAddress(i)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-2">
+        <span>
+          <button class="btn btn-success" style="margin-right: 5px"
+                  type="submit"
+                  [disabled]="!formGroup.valid">
+            Save
+          </button>
+          <button class="btn btn-warning"
+                  type="button"
+                  [routerLink]='["/employees"]'>
+            Cancel
+          </button>
+        </span>
+
+      </div>
+
+    </div>
+  </fieldset>
+</form>
+

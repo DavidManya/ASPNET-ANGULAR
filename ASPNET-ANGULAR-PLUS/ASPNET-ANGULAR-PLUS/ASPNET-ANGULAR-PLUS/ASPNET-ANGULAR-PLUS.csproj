@@ -10,15 +10,15 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
-    <RootNamespace>ASPNET_ANGULAR</RootNamespace>
+    <RootNamespace>ASPNET_ANGULAR_PLUS</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -27,32 +27,41 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.4" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="%2a%2a\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="%2a%2a\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\employees\employee.ts" />
+    <Compile Remove="%2a%2a\**" />
+    <EmbeddedResource Remove="%2a%2a\**" />
+    <TypeScriptCompile Remove="%2a%2a\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Remove="ClientApp\src\app\AppModule.ts" />
-    <TypeScriptCompile Remove="ClientApp\src\app\employees\employees.component.ts" />
+    <None Remove="ClientApp\src\app\Components\employee\address\Address.ts" />
+    <None Remove="ClientApp\src\app\Components\employee\Employee.ts" />
   </ItemGroup>
-  
-  <!--afegit-->
+
   <ItemGroup>
-    <Content Include="ClientApp\tsconfig.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
+    <TypeScriptCompile Remove="%2a%2a\%2a.ts" />
+    <TypeScriptCompile Remove="%2a%2a\%2a.tsx" />
   </ItemGroup>
-  <!--afegit-->
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\Components\employee\address\address.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\employee\employee.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\Interceptor\" />
+  </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
