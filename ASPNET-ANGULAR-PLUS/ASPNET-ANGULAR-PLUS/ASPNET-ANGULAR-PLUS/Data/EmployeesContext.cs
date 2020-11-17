@@ -1,9 +1,10 @@
 ﻿using ASPNET_ANGULAR_PLUS.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPNET_ANGULAR_PLUS.Data
 {
-    public class EmployeesContext : DbContext
+    public class EmployeesContext : IdentityDbContext<ApplicationUser>
     {
         public EmployeesContext(DbContextOptions<EmployeesContext> options)
             : base(options)
@@ -16,6 +17,8 @@ namespace ASPNET_ANGULAR_PLUS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Employee>().HasData(
                 new Employee
                 {

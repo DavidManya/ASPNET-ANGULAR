@@ -20,18 +20,27 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
+          <li class="nav-item"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/employees']"
-              >Employees</a
-            >
+          <li class="nav-item"
+              [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/employees']">Employees</a>
           </li>
+
+          <li class="nav-item"
+              *ngIf="!estaLogueado()"
+              [routerLinkActive]='["link-active"]'>
+            <a class="nav-link text-dark" [routerLink]='["/register-login"]' (click)='collapse()'> Register / Login</a>
+          </li>
+          <li class="nav-item"
+              *ngIf="estaLogueado()"
+              [routerLinkActive]='["link-active"]'>
+            <a class="nav-link text-dark" [routerLink]="['/']" (click)='logout()'> Logout</a>
+          </li>
+
         </ul>
       </div>
     </div>

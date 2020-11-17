@@ -13,6 +13,10 @@ import { EmployeeFormComponent } from './Components/employee-form/employee-form.
 import { LogInterceptorService } from './Interceptor/log-interceptor.service';
 import { AddressService } from './Components/employee/address/address.service';
 import { LeaveFormService } from './Services/leave-form.service';
+import { RegisterComponent } from './account/register/register.component';
+import { AuthGuardService } from './Services/auth-guard.service';
+import { AccountService } from './account/account.service';
+import { AuthInterceptorService } from './Services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,8 @@ import { LeaveFormService } from './Services/leave-form.service';
     NavMenuComponent,
     HomeComponent,
     EmployeeComponent,
-    EmployeeFormComponent
+    EmployeeFormComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,17 +34,25 @@ import { LeaveFormService } from './Services/leave-form.service';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'employees', component: EmployeeComponent },
+      { path: 'employees', component: EmployeeComponent, canActivate: [AuthGuardService] },
       { path: 'employees-add', component: EmployeeFormComponent, canDeactivate: [LeaveFormService] },
       { path: 'employees-edit/:id', component: EmployeeFormComponent, canDeactivate: [LeaveFormService] },
+      { path: 'register-login', component: RegisterComponent },
     ])
   ],
   providers: [EmployeeService,
     AddressService,
     LeaveFormService,
+    AuthGuardService,
+    AccountService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
       multi: true
     }
   ],
